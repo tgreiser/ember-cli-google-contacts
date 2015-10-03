@@ -12,6 +12,11 @@ export default DS.Transform.extend({
    * @type {Function}
    */
   parser: function(item){
+    if (typeof item !== 'object') { // This should never run, but just for extra safety
+      console.log("Discarding invalid contact node:");
+      console.log(item);
+      return; Ember.Object.create({});
+    }
     return Ember.Object.create(item);
   },
 

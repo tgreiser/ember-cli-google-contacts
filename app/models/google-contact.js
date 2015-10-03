@@ -73,6 +73,24 @@ export default DS.Model.extend({
   }).readOnly(),
 
   /**
+   * Phone Numbers
+   * @property numbers
+   * @type {Array.<{rel: string, uri: string, primary: boolean}>}
+   */
+  numbers: DS.attr('google-contact-numbers'),
+
+  /**
+   * Primary or any phone number
+   * @property anyNumber
+   * @type {string}
+   */
+  anyNumber: Ember.computed('numbers.[]', function () {
+    var numbers = this.get('numbers');
+    return numbers.findBy('primary') || numbers.findBy('uri');
+  }).readOnly(),
+
+
+  /**
    * First available photo URL
    * @property anyPhotoUrl
    * @type {}

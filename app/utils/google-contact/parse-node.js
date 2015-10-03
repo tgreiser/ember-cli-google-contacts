@@ -31,12 +31,18 @@ export default function googleContactParseNode(node, key, transformers, defaultV
   var value = key ? Ember.get(node, key) : node;
   if (value) {
     if (typeof value === 'object') {
-      if (value.$t) {
+      // don't want phoneNumber nodes to return as a string value, even though they have $t
+      var isObject = typeof value.uri === 'string';
+      if (!isObject && value.$t) {
         value = attrValue(value.$t);
       }
       else {
         if (value.rel) {
           value.rel = attrValue(value.rel);
+        }
+        if (isObject) {
+          // this chops the tel:+ off the beginning of the phoneNumber
+          value.number = value.uri.substr(5);
         }
         if (transformers) {
           for (var iT in transformers) {

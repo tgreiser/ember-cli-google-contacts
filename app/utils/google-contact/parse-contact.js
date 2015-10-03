@@ -29,7 +29,8 @@ var PARSERS = [
   makeNodeArrayParser('category', 'categories', 'term'),
   makeNodeParser('title'),
   makeNodeArrayParser('link', 'links'),
-  makeNodeArrayParser('gd$email', 'emails', {})
+  makeNodeArrayParser('gd$email', 'emails', {}),
+  makeNodeArrayParser('gd$phoneNumber', 'numbers', {})
 ];
 
 /**
